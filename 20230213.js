@@ -62,5 +62,3 @@ function solution(survey, choices) {
 
   return answer.join("");
 }
-
-solution(["AN", "CF", "MJ", "RT", "NA"], [5, 3, 2, 7, 5]);
