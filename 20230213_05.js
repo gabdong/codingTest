@@ -1,3 +1,5 @@
+// https://school.programmers.co.kr/learn/courses/30/lessons/72410
+
 function solution(new_id) {
     var answer = new_id
         .toLowerCase()
