@@ -18,11 +18,7 @@ function solution(survey, choices) {
       continue;
     }
 
-    let point;
-    if (choice > 4) point = choice - 4;
-    if (choice === 1) point = 3;
-    if (choice === 2) point = 2;
-    if (choice === 3) point = 1;
+    const point = Math.abs(choice - 4);
 
     if (choice > 4) {
       typePoint.get(secondType)
@@ -61,4 +57,22 @@ function solution(survey, choices) {
   }
 
   return answer.join("");
+}
+
+//* good solution
+function good_solution(survey, choices) {
+  const MBTI = {};
+  const types = ["RT","CF","JM","AN"];
+
+  types.forEach((type) =>
+      type.split('').forEach((char) => MBTI[char] = 0)
+  )
+
+  choices.forEach((choice, index) => {
+      const [disagree, agree] = survey[index];
+
+      MBTI[choice > 4 ? agree : disagree] += Math.abs(choice - 4);
+  });
+
+  return types.map(([a, b]) => MBTI[b] > MBTI[a] ? b : a).join("");
 }
