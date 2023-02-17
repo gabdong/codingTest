@@ -1,3 +1,5 @@
+// https://school.programmers.co.kr/learn/courses/30/lessons/17684
+
 function solution(msg) {
   var answer = [];
   const alphabet = new Map([
@@ -30,42 +32,30 @@ function solution(msg) {
   ]);
   msg = msg.split("");
 
+  let stack = [];
   const msgLn = msg.length;
 
   for (let i = 0; i < msgLn; i++) {
-    let next = i + 1;
-    let currentStr = msg[i];
-    // let currentStr = msg.slice(i, next)[0];
-
-    let j = 1;
-    while (alphabet.get(currentStr) && j < 50) {
-      if (!msg[next + j]) {
-        answer.push(alphabet.get(currentStr));
-        break;
-      }
-
-      const addStr = msg.slice(i, next + j).join("");
-
-      if (alphabet.get(addStr)) {
-        currentStr = addStr;
-        j++;
-      } else if (!alphabet.get(addStr)) {
-        alphabet.set(addStr, alphabet.size + 1);
-        console.log("current: " + currentStr);
-        console.log("currentIndex: " + alphabet.get(currentStr));
-        console.log("add: " + addStr);
-        console.log("addIndex: " + alphabet.get(addStr));
-        console.log("i: " + i);
-        console.log("------------------------");
-        answer.push(alphabet.get(currentStr));
-        break;
-      }
+    const char = msg[i];
+    stack.push(char);
+    const newStr = stack.join('');
+    if (i == msgLn - 1) {
+      const lastIndex = alphabet.get(newStr);
+      if (lastIndex) answer.push(lastIndex);
     }
+    if (alphabet.get(newStr)) continue;
+
+    stack.pop();
+    const addStr = stack.join('');
+    const addIndex = alphabet.get(addStr);
+    const newIndex = alphabet.size + 1;
+
+    alphabet.set(newStr, newIndex);
+    answer.push(addIndex);
+
+    stack = [];
+    i--;
   }
 
-  console.log(answer);
   return answer;
 }
-
-// solution("KAKAO");
-solution("ABABABABABABABAB");
