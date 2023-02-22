@@ -38,7 +38,7 @@ function solution(msg) {
   for (let i = 0; i < msgLn; i++) {
     const char = msg[i];
     stack.push(char);
-    const newStr = stack.join('');
+    const newStr = stack.join("");
     if (i == msgLn - 1) {
       const lastIndex = alphabet.get(newStr);
       if (lastIndex) answer.push(lastIndex);
@@ -46,7 +46,7 @@ function solution(msg) {
     if (alphabet.get(newStr)) continue;
 
     stack.pop();
-    const addStr = stack.join('');
+    const addStr = stack.join("");
     const addIndex = alphabet.get(addStr);
     const newIndex = alphabet.size + 1;
 
