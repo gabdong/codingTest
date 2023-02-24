@@ -1,25 +1,19 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/17686
 
 function solution(files) {
-    var answer = [];
+    return files.sort((a, b) => {
+        const reg = /^[a-zA-Z\s.-]+|\d{1,5}/g
+        const matchA = a.match(reg)
+            , matchB = b.match(reg);
+        const aString = matchA[0].toLowerCase()
+            , bString = matchB[0].toLowerCase();
 
-    const head = [];
-    const number = [];
-    const tail = [];
-
-    for (const file of files) {
-        const fileString = file.split(/[0-9]/g).filter((el) => el);
-        const fileNumber = file.split(/[^0-9]/g).filter((el) => el);
-
-        if (fileString.length > 0) tail.push(fileString[fileString.length - 1]);
-        head.push(fileString[0]);
-        number.push(Number(fileNumber[0]));
-    }
-
-    console.log(head);
-    console.log(number);
-    console.log(tail);
-    return answer;
+        if (aString === bString) {
+            return matchA[1] - matchB[1];
+        } else if (aString > bString) {
+            return 1;
+        } else {
+            return -1;
+        }
+    });
 }
-
-solution(["img12.png", "img10.png", "img02.png", "img1.png", "IMG01.GIF", "img2.JPG"]);
